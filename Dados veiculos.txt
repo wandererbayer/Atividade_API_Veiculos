@@ -1,0 +1,30 @@
+"marca": "Mitsubishi",
+"modelo": "Lancer",
+"ano": "2000",
+"proprietario": "Fulano",
+"cor": "Azul"
+
+"marca": "Mitsubishi",
+"modelo": "Eclipse",
+"ano": "2005",
+"proprietario": "Fulano",
+"cor": "Preto"
+
+"marca": "Peugeot",
+"modelo": "208",
+"ano": "2010",
+"proprietario": "Beltrano",
+"cor": "Azul"
+
+"marca": "Peugeot",
+"modelo": "209",
+"ano": "2020",
+"proprietario": "Ciclano",
+"cor": "Vermelho"
+
+"marca": "Peugeot",
+"modelo": "207",
+"ano": "2015",
+"proprietario": "Ciclano",
+"cor": "Vermelho"
+ 
