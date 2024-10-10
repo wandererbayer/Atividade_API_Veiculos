@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const db = require('./db')
 
-app.use(express.json())
+app.use(express.json()) //usa o framework express
 
 const port = 3000
 let listaVeiculos = []
@@ -22,8 +22,8 @@ app.post('/inserir', (req,res)=>{
 
     db.query(
         `INSERT INTO veiculos (marca, modelo, ano, proprietario, cor) VALUES (?, ?, ?, ?, ?)`,
-        [marca, modelo, Number(ano), proprietario, cor],
-        function(err, results, fields){
+        [marca, modelo, Number(ano), proprietario, cor], //precisa do Number() para converter para INT no Banco de Dados
+        function(err, results, fields){ //função própria do "query" / erro, colunas, informações
             if(err){
                 console.error('Erro na inserção', err);
                 return;
