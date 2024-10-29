@@ -9,7 +9,7 @@ function App() {
 	const [proprietario, setProprietario] = useState("")
 	const [cor, setCor] = useState("")
 	const [id, setId] = useState("")
-	const [dados, setdados] = useState([])
+	const [dados, setDados] = useState([])
 
 	useEffect(() => {
 		console.log(marca, modelo, ano, proprietario, cor, id)
@@ -32,60 +32,60 @@ function App() {
 		})
 	}
 	//GET - Todos
-	async function getAllVehicle(){ 
-		await axios.get("http://localhost:3000/selecionartodos", {
-			marca, modelo, ano, proprietario, cor
-		})
-	}
-	//GET - por Id
+	async function getAllVehicle(){
+		const response = await axios.get("http://localhost:3000/selecionartodos")
+		setDados(response.data)
+    }
+
+	//GET - por ID
+    // ? Dados do Array estão mostrando "undefined" ? \\
+    // * Dados do Array estão mostrando "undefined" * \\
+    // ^ Dados do Array estão mostrando "undefined" ^ \\
+    // ! Dados do Array estão mostrando "undefined" ! \\
 	async function getVehicleById(){ 
 		if (!id) {
 			console.error("ID do veículo não fornecido");
 			return;
 		}
-		await axios.get(`http://localhost:3000/selecionarPorId/${id}`, {
-			marca, modelo, ano, proprietario, cor
-		})
+		const response = await axios.get(`http://localhost:3000/selecionarPorId/${id}`)
+        setDados([response.data]) 
 	}
+
 	//GET - por Cor
 	async function getVehicleByColor(){ 
 		if (!cor) {
 			console.error("Cor do veículo não fornecida");
 			return;
 		}
-		await axios.get(`http://localhost:3000/selecionarPorCor/${cor}`, {
-			marca, modelo, ano, proprietario, cor
-		})
+		const response = await axios.get(`http://localhost:3000/selecionarPorCor/${cor}`)
+		setDados(response.data)
 	}
+
 	//GET - por Ano
 	async function getVehicleByYear(){ 
 		if (!ano) {
-			console.error("Cor do veículo não fornecida");
+			console.error("Ano do veículo não fornecido");
 			return;
 		}
-		await axios.get(`http://localhost:3000/selecionarPorAno/${ano}`, {
-			marca, modelo, ano, proprietario, cor
-		})
+		const response = await axios.get(`http://localhost:3000/selecionarPorAno/${ano}`)
+		setDados(response.data)
 	}
+
 	//DELETE - por ID
 	async function deleteVehicleById(){ 
 		if (!id) {
 			console.error("Cor do veículo não fornecida");
 			return;
 		}
-		await axios.delete(`http://localhost:3000/deletarPorId/${id}`, {
-			marca, modelo, ano, proprietario, cor
-		})
+		await axios.delete(`http://localhost:3000/deletarPorId/${id}`)
 	}
-	//DELETE - por Ano
+	//DELETE - por Modelo
 	async function deleteVehicleByModel(){ 
 		if (!modelo) {
 			console.error("Cor do veículo não fornecida");
 			return;
 		}
-		await axios.delete(`http://localhost:3000/deletarPorModelo/${modelo}`, {
-			marca, modelo, ano, proprietario, cor
-		})
+		await axios.delete(`http://localhost:3000/deletarPorModelo/${modelo}`)
 	}
 
 	//REGISTRAR
@@ -132,47 +132,58 @@ function App() {
 	return (
 		<>
 			<div className='card'>
-				<form>
-					<label htmlFor="marca">Marca</label><br />
-					<input type="text" id='marca' onChange={(e) => (setMarca(e.target.value))} /><br />
+                <div className='BOX'>
+                    <div className='Left'>
+                        <form>
+                            <label htmlFor="id">ID</label><br />
+                            <input type="text" id='id' onChange={(e) => setId(e.target.value)} /><br />
 
-					<label htmlFor="modelo">Modelo</label><br />
-					<input type="text" id='modelo' onChange={(e) => (setModelo(e.target.value))} /><br />
+                            <label htmlFor="marca">Marca</label><br />
+                            <input type="text" id='marca' onChange={(e) => (setMarca(e.target.value))} /><br />
 
-					<label htmlFor="ano">Ano</label><br />
-					<input type="text" id='ano' onChange={(e) => Number(setAno(e.target.value))} /><br />
+                            <label htmlFor="modelo">Modelo</label><br />
+                            <input type="text" id='modelo' onChange={(e) => (setModelo(e.target.value))} /><br />
 
-					<label htmlFor="proprietario">Proprietário</label><br />
-					<input type="text" id='proprietario' onChange={(e) => (setProprietario(e.target.value))} /><br />
+                            <label htmlFor="ano">Ano</label><br />
+                            <input type="text" id='ano' onChange={(e) => Number(setAno(e.target.value))} /><br />
 
-					<label htmlFor="cor">Cor</label><br />
-					<input type="text" id='cor' onChange={(e) => (setCor(e.target.value))} /><br />
-					<br />
-					<button type='submit' onClick={handleSubmit}>Registrar Veículo</button>
-					<br /><br />
-					<label htmlFor="id">ID do Veículo</label><br />
-					<input type="text" id='id' onChange={(e) => setId(e.target.value)} /><br />
-					<br />
-					<button type='submit' onClick={handleUpdateSubmit}>Atualizar Veículo</button>
-					<br /><br />
-					<button type='submit' onClick={handleGet}>Mostrar Veículos</button>
-					<br /><br />
-					<button type='submit' onClick={handleGetById}>Mostrar Veículos por ID</button>
-					<br /><br />
-					<button type='submit' onClick={handleGetByColor}>Mostrar Veículos por Cor</button>
-					<br /><br />
-					<button type='submit' onClick={handleGetByYear}>Mostrar Veículos por Ano</button>
-					<br /><br />
-					<button type='submit' onClick={handleDeletetById}>Excluir Veículo por ID</button>
-					<br /><br />
-					<button type='submit' onClick={handleDeletetByModel}>Excluir Veículo por Modelo</button>
-				</form>
-			</div>
-			<div>
-				<ul>
-					{/* RESPOSTA */}
-				</ul>
-			</div>
+                            <label htmlFor="proprietario">Proprietário</label><br />
+                            <input type="text" id='proprietario' onChange={(e) => (setProprietario(e.target.value))} /><br />
+
+                            <label htmlFor="cor">Cor</label><br />
+                            <input type="text" id='cor' onChange={(e) => (setCor(e.target.value))} /><br />
+                            <br />
+                            <button className='Btn_Reg' type='submit' onClick={handleSubmit}>Registrar Veículo</button>
+                            <br />
+                        </form>
+					</div>
+                    <div className='Center'>
+                        <button type='submit' onClick={handleUpdateSubmit}>Atualizar Veículo</button>
+                        <br />
+                        <button type='submit' onClick={handleGet}>Mostrar Veículos</button>
+                        <br />
+                        <button type='submit' onClick={handleGetById}>Mostrar Veículos por ID</button>
+                        <br />
+                        <button type='submit' onClick={handleGetByColor}>Mostrar Veículos por Cor</button>
+                        <br />
+                        <button type='submit' onClick={handleGetByYear}>Mostrar Veículos por Ano</button>
+                        <br />
+                        <button type='submit' onClick={handleDeletetById}>Excluir Veículo por ID</button>
+                        <br />
+                        <button type='submit' onClick={handleDeletetByModel}>Excluir Veículo por Modelo</button>
+                        <br />
+                    </div>
+                    <div className='Right'>
+                        <ul>
+                        {dados.map((veiculo) => (
+                                <li key={veiculo.id}>
+                                    {`ID: ${veiculo.id}, Marca: ${veiculo.marca}, Modelo: ${veiculo.modelo}, Ano: ${veiculo.ano}, Proprietário: ${veiculo.proprietario}, Cor: ${veiculo.cor}`}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+            </div>
 		</>	
 	)
 }
