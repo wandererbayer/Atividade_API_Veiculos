@@ -1,8 +1,13 @@
 const express = require('express')
 const app = express()
 const db = require('./db')
+const cors = require('cors')
 
 app.use(express.json()) //usa o framework express
+
+app.use(cors({ //usa o cors
+    origin: '*'
+}))
 
 const port = 3000
 let listaVeiculos = []
