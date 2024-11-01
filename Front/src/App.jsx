@@ -38,10 +38,6 @@ function App() {
     }
 
 	//GET - por ID
-    // ? Dados do Array estão mostrando "undefined" ? \\
-    // * Dados do Array estão mostrando "undefined" * \\
-    // ^ Dados do Array estão mostrando "undefined" ^ \\
-    // ! Dados do Array estão mostrando "undefined" ! \\
 	async function getVehicleById(){ 
 		if (!id) {
 			console.error("ID do veículo não fornecido");
